@@ -1,35 +1,95 @@
 <html>
 <head>
-    <title>Registrasi</title>
+<title>Form Pembelian</title>
 </head>
+
 <body>
-    <form action="contact.php" method="POST">
-        <fieldset>
-        <legend>Registrasi</legend>
-        <p>
-            <label>Nama:</label>
-            <input type="text" name="nama" placeholder="Nama lengkap..." />
-        </p>
-        <p>
-            <label>Alamat:</label>
-            <input type="text" name="alamat" placeholder="Alamat..." />
-        </p>
-        <p>
-            <label>Email:</label>
-            <input type="email" name="email" placeholder="Your email..." />
-        </p>
-        <p>
-            <label>Telp:</label>
-            <input type="text" name="telp" placeholder="Telp..." />
-        </p>
-        <p>
-            <label>Jenis kelamin:</label>
-            <label><input type="radio" name="jenis_kelamin" value="laki-laki" /> Laki-laki</label>
-            <label><input type="radio" name="jenis_kelamin" value="perempuan" /> Perempuan</label>
-        <p>
-            <input type="submit" name="submit" value="Daftar" />
-        </p>
-        </fieldset>
-    </form>
+<table align=”center” width =”300″>
+<FORM ACTION=”kain2.php” METHOD=”POST” name=”input”>
+<tr>
+<td colspan=”3″ align =”center”>Konser Amal<br>—————————————————-</td>
+</tr>
+<tr>
+<td width=”100″>Nama Pemesan</td>
+<td> : </td>
+<td> <input type = “text” name = “nama”></td>
+</tr>
+<tr>
+<td>Nama Studio</td>
+<td> : </td>
+<td><select name=”jenis”>
+<option value=”Opick”> Studio1</option>
+<option value=”Raihan”> Studio2</option>
+</select>
+</td>
+</tr>
+<tr>
+<td>Jenis Kelas </td>
+<td> : </td>
+<td> <input type=”radio” name=”qty” value=”studio1″> vip <br>
+<input type=”radio” name=”qty” value=”studio2″>tribune
+</td>
+</tr>
+<tr>
+<td>Jumlah Tiket</td>
+<td> :</td>
+<td><input type = “text” name = “jumlah”></td>
+</tr>
+<tr>
+<td colspan=”3″ align=”center” width=”60″ height=”60″><input type=”submit” name=”Input” value=”Tampil”> <input type=”reset” name=”Reset” value=”Batal”></td>
+</tr>
+</table>
 </body>
 </html>
+
+yang kedua membuat file output.php
+<?php
+$tgl=date(‘d-F-Y’);
+if (isset($_POST[‘Input’])) {
+$nama = $_POST[‘nama’];
+$jenis = $_POST[‘jenis’];
+if(isset($_POST[‘qty’])) {
+$kualitas = $_POST[‘qty’];
+}
+
+//klasifikasi harga
+if ($jenis == “Opick” && $kualitas == “studio1”) {
+$harga = 250000;
+}else if ($jenis == “Opick” && $kualitas== “studio2”){
+$harga = 500000;
+}
+else if ($jenis == “Raihan” && $kualitas == “studio1”){
+$harga = 500000;
+}else if ($jenis == “Raihan” && $kualitas == “studio2”){
+$harga = 500000;
+}
+
+$Jumlah = $_POST[‘jumlah’];
+$total = ($Jumlah*$harga);
+
+//total keseluruhan
+If ($Jumlah > 15) {
+$diskon = (($total*20)/100);
+} else {
+$diskon = 0;
+}
+$seluruh = ($total – $diskon);
+}
+
+echo “<table border=2 align=center>
+<br><br><br><br><br><br><br><br><br><br><br><br><br><center>
+<tr>
+<td>
+—————“. $tgl .”—————-<br>
+——————————————————-<br>
+Nama Pemesan: “.$nama.”<br>
+——————————————————-<br>
+Nama Studio: “.$kualitas.”<br>
+Bintang Tamu: “.$jenis.”<br>
+Harga Tiket: “.$harga.”<br>
+Jumlah Tiket: “.$Jumlah.” <br>
+Total Biaya: “.$total.” <br>
+</td>
+</tr>
+</table>”;
+?>
